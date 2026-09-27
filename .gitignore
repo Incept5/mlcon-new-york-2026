@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+TEACHER_NOTES.md
+.idea/
+/day-1/embeddings.pkl
+/day-2/chroma_db/
