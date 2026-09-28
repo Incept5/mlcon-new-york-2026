@@ -9,6 +9,7 @@ python-dotenv
 requests
 urllib3<2          # pin avoids LibreSSL warnings/errors on macOS system Python
 numpy
+sounddevice        # microphone + speaker for the voice labs
 tabulate
 rich
 ollama

@@ -71,6 +71,7 @@ During the course, add the class Spark's key as `SPARK_API_KEY=...` too (used by
 | `embedding_demo.py` | **Embeddings + cosine similarity.** Embeds `tea / coffee / mud / dirt` with `all-minilm` (via Ollama) and prints the full similarity matrix as a grid — "tea"≈"coffee", "mud"≈"dirt". Needs `pip install numpy tabulate`. |
 | `embedding_example.py` | An interactive twin of the above: type a question and it ranks a fixed list of sentences by cosine similarity, reporting the mean, standard deviation and each result's **z‑score** so outliers stand out. Talks to Ollama's REST embeddings endpoint directly. |
 | `word_embeddings.py` | **Visualising meaning.** Embeds the system dictionary with `sentence-transformers`, finds the nearest neighbours of a set of target words, reduces to 3‑D with **PCA**, and renders an interactive **Plotly** scatter. Caches vectors in `embeddings.pkl`. Needs `pip install sentence-transformers scikit-learn plotly`. |
+| `image_embeddings.py` | **Lab: it's not only text you can embed.** CLIP puts photos and sentences in the same embedding space, so a sentence can find a photo in `day-2/data/`. `python image_embeddings.py --faces` embeds faces of public figures from the LFW dataset (~200 MB download) and checks whether each face's nearest neighbour is the same person. Needs `pip install sentence-transformers pillow scikit-learn`. |
 | `3d_plot.html` | A saved example of the Plotly 3‑D output from `word_embeddings.py` — open it in a browser without running anything. |
 | `logit_probabilities.py` | **Decoding, made visible.** A Gradio app (on `llama-cpp` + a local GGUF) that shows the next‑token probability distribution as a table and pie chart, lets you inject any candidate token by rank to walk "the path not taken", and surfaces the stop‑token probability — the canonical "*why doesn't it stop?*" demo. Forces Qwen3 no‑think mode. Edit `DEFAULT_MODEL_PATH` to point at your own `.gguf`. Needs `pip install gradio llama-cpp-python plotly numpy`. |
 
@@ -85,6 +86,7 @@ During the course, add the class Spark's key as `SPARK_API_KEY=...` too (used by
 | `local_performance_demo.py` | A timing harness: runs a batch of multilingual "difficult" questions through `qwen3.5:4b` (thinking off, `temperature=0`) and prints the latency of each — get a feel for size vs. speed. |
 | `quantisation_taste_test.py` | **Lab: quantisation taste test.** The same four prompts through `qwen3.5:4b` at Q4_K_M (the default), Q8_0 and BF16, with the size and tokens/sec of each. Pull the extra two first (`ollama pull qwen3.5:4b-q8_0`, `ollama pull qwen3.5:4b-bf16`); any model you pass on the command line replaces the list. |
 | `openai_everywhere.py` | **Lab: one script, many endpoints.** One OpenAI‑SDK call sent to Ollama, LM Studio, the class Spark and Together — only `base_url`, key and model change. Prints time and tokens/sec, so it doubles as a laptop‑vs‑Spark speed race. `python openai_everywhere.py spark` runs a single endpoint. Keys come from `.env`. |
+| `model_test.py` | **Lab: test models on your own questions.** Five tricky questions, each with an automatic check, run against two models with thinking off and on. Prints the score, how many answers **ran out of tokens while still thinking** (a small reasoning model can think forever), and the time. Scores vary between runs: run it twice. |
 
 ## 4. Calling the cloud providers
 
@@ -125,3 +127,9 @@ different model name or `base_url`.
 5. `getting_started_ollama.py` → `getting_started_ollama_params.py` → `three_local_backends.py` — run models locally and tune them.
 6. The `basic_*.py` family — the same task across every major cloud provider.
 7. `vision_demo_ollama.py` and `ai_astrology.py` — put it together.
+
+## Voice
+
+| Script | What it shows |
+|---|---|
+| `voice_astrology.py` | **Lab: Voice AI Astrology.** Say your name and star sign; Whisper transcribes it, Maude (Qwen3.6 on the class Spark) writes a horoscope, and Kokoro, or a **cloned voice** via Chatterbox, reads it out. Set `VOICE_CLIP` to a 5–15 s recording to clone it: `day-2/data/roosevelt-voice-sample.wav` is Theodore Roosevelt in 1912 (public domain). Needs `pip install sounddevice numpy openai python-dotenv` and `SPARK_API_KEY` in `.env`; `python voice_astrology.py some.wav` uses a recording instead of the microphone. |
