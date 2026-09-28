@@ -17,7 +17,7 @@ def main():
         Remember, the user is looking for a positive and optimistic outlook on their future.
         Use British English, metric and EU date formats where applicable."""
 
-    instruction = f"Please provide a horoscope for {name} who's star sign is {star_sign}. Today's date is {today}."
+    instruction = f"Please provide a horoscope for {name} whose star sign is {star_sign}. Today's date is {today}."
 
     response = ollama.chat(
         model=LLM, think=True, stream=False,
