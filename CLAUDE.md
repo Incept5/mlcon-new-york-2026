@@ -20,7 +20,7 @@ Setup (once): `python3 -m venv .venv && source .venv/bin/activate && pip install
 
 Scripts fall into two families:
 
-- **Cloud-provider demos** (`basic_*.py`, the `*_groq.py` variants) call `load_dotenv()` and read a key from a `.env` in the **repo root** (copy `.env.example`). Run them *from the repo root* so the `.env` is found. Env var names match the provider: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GROK_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `TOGETHER_API_KEY`, `FIREWORKS_API_KEY`. (`together_chat.py` is the exception — it reads `TOGETHER_KEY.txt`.)
+- **Cloud-provider demos** (`basic_*.py`, the `*_groq.py` variants) call `load_dotenv()` and read a key from a `.env` in the **repo root** (copy `.env.example`). Run them *from the repo root* so the `.env` is found. Env var names match the provider: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GROK_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `TOGETHER_API_KEY`, `FIREWORKS_API_KEY`.
 - **Local-inference demos** need a server already running on localhost, no key:
   - **Ollama** on `:11434` — `ollama pull qwen3.5:4b`, plus `embeddinggemma` / `all-minilm` for RAG.
   - **LM Studio** on `:1234` (OpenAI-compatible) — used by the vision demos (`find_beer.py`, `visual_ml_studio.py`, `test_lmstudio_vision.py`).
@@ -50,4 +50,4 @@ A few day-1 scripts (`three_local_backends.py`, `logit_probabilities.py`) histor
 
 ## Git
 
-`origin` is `git@github.com:Incept5/mlcon-new-york-2026.git` (**the GitHub repo does not exist yet** — create it before the first push, which will then need `git push -u origin main`). The working tree tracks `origin/main` directly, so normal `git push origin main` works. macOS `.DS_Store` files and the `vibe/` experiment outputs are noise — don't commit them (`.gitignore` covers `.DS_Store`, `.env`, `.venv/`, `__pycache__/`, `TEACHER_NOTES.md`).
+`origin` is `git@github.com:Incept5/mlcon-new-york-2026.git`, a **public** repo. The working tree tracks `origin/main`, so normal `git push origin main` works. macOS `.DS_Store` files and the `vibe/` experiment outputs are noise — don't commit them (`.gitignore` covers `.DS_Store`, `.env`, `.venv/`, `__pycache__/`, `TEACHER_NOTES.md`).

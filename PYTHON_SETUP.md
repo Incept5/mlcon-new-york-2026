@@ -142,7 +142,6 @@ TOGETHER_API_KEY=...
 FIREWORKS_API_KEY=...
 ```
 
-(`together_chat.py` is the exception — it reads a `TOGETHER_KEY.txt` file instead.)
 
 ## 5. Smoke test
 

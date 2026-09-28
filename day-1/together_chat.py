@@ -1,6 +1,10 @@
-import requests
+import os
 
-key = open("TOGETHER_KEY.txt").read().strip()
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+key = os.environ["TOGETHER_API_KEY"]
 
 r = requests.post(
     "https://api.together.xyz/v1/chat/completions",

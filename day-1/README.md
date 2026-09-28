@@ -51,8 +51,8 @@ TOGETHER_API_KEY=...
 FIREWORKS_API_KEY=...
 ```
 
-(`together_chat.py` is the one exception — it reads a `TOGETHER_KEY.txt` file
-instead of `.env`.)
+During the course, add the class Spark's key as `SPARK_API_KEY=...` too (used by
+`openai_everywhere.py`; the key is given out in the room and withdrawn afterwards).
 
 ---
 
@@ -83,6 +83,8 @@ instead of `.env`.)
 | `getting_started_lm_studio.py` | The smallest possible **LM Studio** call (OpenAI‑compatible `/v1/chat/completions` on port 1234). |
 | `three_local_backends.py` | The same prompt through **three local backends** — Ollama, LM Studio and MLX — side by side. Note how thinking mode is toggled differently per backend (`think=False`, `/no_think`, `enable_thinking=False`). |
 | `local_performance_demo.py` | A timing harness: runs a batch of multilingual "difficult" questions through `qwen3.5:4b` (thinking off, `temperature=0`) and prints the latency of each — get a feel for size vs. speed. |
+| `quantisation_taste_test.py` | **Lab: quantisation taste test.** The same four prompts through `qwen3.5:4b` at Q4_K_M (the default), Q8_0 and BF16, with the size and tokens/sec of each. Pull the extra two first (`ollama pull qwen3.5:4b-q8_0`, `ollama pull qwen3.5:4b-bf16`); any model you pass on the command line replaces the list. |
+| `openai_everywhere.py` | **Lab: one script, many endpoints.** One OpenAI‑SDK call sent to Ollama, LM Studio, the class Spark and Together — only `base_url`, key and model change. Prints time and tokens/sec, so it doubles as a laptop‑vs‑Spark speed race. `python openai_everywhere.py spark` runs a single endpoint. Keys come from `.env`. |
 
 ## 4. Calling the cloud providers
 
@@ -102,7 +104,7 @@ different model name or `base_url`.
 | `basic_fireworks.py` | Fireworks · `deepseek-v3p2` | raw `requests`, no SDK |
 | `basic_together.py` | Together · `Qwen3-235B-A22B-Instruct` | `pip install together` |
 | `getting_started_groq.py` | Groq, stripped to the bare minimum | the "first contact" version of `basic_groq.py` |
-| `together_chat.py` | Together via raw `requests` | reads the key from `TOGETHER_KEY.txt`, **not** `.env` |
+| `together_chat.py` | Together via raw `requests` | reads `TOGETHER_API_KEY` from `.env` |
 
 ## 5. Beyond text — vision, and a worked example
 
