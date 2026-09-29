@@ -83,7 +83,7 @@ embedding backend, so you can compare approaches.
 | `rag_grimm_fairy_tales_groq.py` | The cloud twin: `sentence-transformers` embeddings + **Groq** (`llama-3.3-70b-versatile`) for generation. Keep it in sync with the local version. |
 | `grimm_fairy_tales_rag_demo.py` | A richer demo using a **`Qwen3-Embedding`** model (batched, 512‑dim, with a reranking‑style top‑k) and `rich` output. |
 | `alice_in_one_go.py` | The **CAG** counterpoint (cache‑augmented generation): the corpus is small enough to fit in a 64k context, so skip retrieval and feed the *whole book* to the model. |
-| `kv_cache_vs_rag.py` | **Lab: KV-cache vs RAG.** The same four questions about *Alice* two ways, on the class Spark: the **whole book** in context (the first question pays ~8 s to read ~38k tokens, then the server reuses the cached keys and values: ~1 s each) and **RAG** with the 4 best chunks (~0.5 s, but it can miss what the question needs). Needs `SPARK_API_KEY` in `.env` and `ollama pull all-minilm`. |
+| `kv_cache_vs_rag.py` | **Lab: KV-cache vs RAG.** Four questions about *Alice* on the class Spark, timing the **first token**: the whole book with a per-person tag at the start (so your first question really is uncached: ~6.5 s alone), then the same book again (read from the cache: ~0.9 s); a timestamp added at the **start** invalidates the cache, the same timestamp at the **end** doesn't; RAG with 4 chunks (~0.25 s, but it can miss things). With the whole room running it at once the Spark is shared, so expect several times longer. Needs `SPARK_API_KEY` in `.env` and `ollama pull all-minilm`. |
 
 ## 3. Summarisation & Data Extraction
 
