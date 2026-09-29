@@ -59,8 +59,8 @@ def main():
     ]
 
     while True:
-        question = input("\nEnter your question (or 'quit' to exit): ")
-        if question.lower() == 'quit':
+        question = input("\nEnter your question (or 'quit' / Enter to exit): ").strip()
+        if not question or question.lower() == 'quit':   # an empty question has no embedding
             break
 
         print("\nFinding similar sentences...")
