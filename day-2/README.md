@@ -64,7 +64,7 @@ can read charts, diagrams, sheet music, menus and photos.
 | `read_music.py` | Reads a music score and names the **key signature**. |
 | `read_ocr_menu.py` | **OCR** a menu/photo to text (the "document is a PDF/image" path into RAG). |
 | `ice_cream_flavours.py` | A quick **menu‑reading** demo: base64‑encode an ice‑cream menu photo (`data/IMG_3319.jpeg`, with `IMG_3320`/`IMG_3321` as alternatives) and ask Ollama's `qwen3.5:4b` vision model to list the flavours. |
-| `read_pdf.py` | **Lab: read a PDF.** A scanned PDF has no text layer, so each page is rendered to an image (PyMuPDF) and transcribed to Markdown by the `qwen3.5:4b` vision model; charts become tables. `data/sample_scan.pdf` is a two-page example (the ice-cream menu and the bar chart); pass your own PDF as the argument. Needs `pip install pymupdf`. |
+| `read_pdf.py` | **Lab: read a PDF page, then ask about its chart.** Renders ONE page of *Housing New York: A Five-Borough, Ten-Year Plan* (City of New York, 2014; `data/housing-new-york.pdf`, from nyc.gov/housing) and has the `qwen3.5:4b` vision model transcribe it to Markdown (tables become Markdown tables), saved as `housing-page-<n>.md`. Then ask questions about the chart or picture on that page. Page 23 (the default) is a bar chart of housing permits and completions; page 20 has a chart and a table: `python read_pdf.py 20`. About 10–15 s a page. Needs `pip install pymupdf`. |
 
 ## 2. RAG — Retrieval‑Augmented Generation
 
