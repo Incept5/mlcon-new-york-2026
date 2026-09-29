@@ -64,6 +64,7 @@ can read charts, diagrams, sheet music, menus and photos.
 | `read_music.py` | Reads a music score and names the **key signature**. |
 | `read_ocr_menu.py` | **OCR** a menu/photo to text (the "document is a PDF/image" path into RAG). |
 | `ice_cream_flavours.py` | A quick **menu‑reading** demo: base64‑encode an ice‑cream menu photo (`data/IMG_3319.jpeg`, with `IMG_3320`/`IMG_3321` as alternatives) and ask Ollama's `qwen3.5:4b` vision model to list the flavours. |
+| `read_pdf.py` | **Lab: read a PDF.** A scanned PDF has no text layer, so each page is rendered to an image (PyMuPDF) and transcribed to Markdown by the `qwen3.5:4b` vision model; charts become tables. `data/sample_scan.pdf` is a two-page example (the ice-cream menu and the bar chart); pass your own PDF as the argument. Needs `pip install pymupdf`. |
 
 ## 2. RAG — Retrieval‑Augmented Generation
 
@@ -82,6 +83,7 @@ embedding backend, so you can compare approaches.
 | `rag_grimm_fairy_tales_groq.py` | The cloud twin: `sentence-transformers` embeddings + **Groq** (`llama-3.3-70b-versatile`) for generation. Keep it in sync with the local version. |
 | `grimm_fairy_tales_rag_demo.py` | A richer demo using a **`Qwen3-Embedding`** model (batched, 512‑dim, with a reranking‑style top‑k) and `rich` output. |
 | `alice_in_one_go.py` | The **CAG** counterpoint (cache‑augmented generation): the corpus is small enough to fit in a 64k context, so skip retrieval and feed the *whole book* to the model. |
+| `kv_cache_vs_rag.py` | **Lab: KV-cache vs RAG.** The same four questions about *Alice* two ways, on the class Spark: the **whole book** in context (the first question pays ~8 s to read ~38k tokens, then the server reuses the cached keys and values: ~1 s each) and **RAG** with the 4 best chunks (~0.5 s, but it can miss what the question needs). Needs `SPARK_API_KEY` in `.env` and `ollama pull all-minilm`. |
 
 ## 3. Summarisation & Data Extraction
 
@@ -178,3 +180,9 @@ The takeaway: *the future is small, local, open‑weight models you own and cont
 7. `payroll.py` → `payroll2.py` — generate and run SQL from a schema.
 8. `simple_tool_call.py` → `ollama_function_support.py` — tool calling, then benchmark it.
 9. `MCP/test_mcp_client_ollama.py` — the same idea standardised over MCP.
+
+## 8. Agents working together
+
+| Script | What it shows |
+|---|---|
+| `persona_debate.py` | **Lab: persona debate.** Three characters from the public-domain books in `data/` (Alice, the Hatter, Little Red-Cap), each with a back-story, a personality and its own passage of text as memory, debate a question over two rounds and then each votes for the most convincing *other* speaker. Runs on the class Spark (`SPARK_API_KEY` in `.env`); switch `base_url`/`MODEL` to use Ollama. Add your own persona. |
