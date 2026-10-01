@@ -1,9 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
+
+
+def fetch_page(url, headers):
+    """The room's internet is slow, so read the saved copy in data/gdpr-info/ unless --live is given."""
+    saved = HERE / "data" / "gdpr-info" / (url.rstrip("/").rsplit("/", 1)[-1] + ".html")
+    if saved.exists() and "--live" not in sys.argv:
+        print(f"Reading the saved copy of {url} (add --live to fetch it)")
+        return saved.read_text(encoding="utf-8")
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.text
 
 
 def scrape_gdpr_article(url):
@@ -12,10 +24,7 @@ def scrape_gdpr_article(url):
     }
 
     try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(fetch_page(url, headers), 'html.parser')
 
         content_selectors = [
             'div[data-elementor-type="single-post"]',

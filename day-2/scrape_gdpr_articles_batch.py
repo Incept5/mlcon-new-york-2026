@@ -5,11 +5,23 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
 OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL = "qwen3.5:4b"
+
+
+def fetch_page(url, headers):
+    """The room's internet is slow, so read the saved copy in data/gdpr-info/ unless --live is given."""
+    saved = HERE / "data" / "gdpr-info" / (url.rstrip("/").rsplit("/", 1)[-1] + ".html")
+    if saved.exists() and "--live" not in sys.argv:
+        print(f"Reading the saved copy of {url} (add --live to fetch it)")
+        return saved.read_text(encoding="utf-8")
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.text
 
 HEADERS = {
     "User-Agent": (
@@ -25,13 +37,12 @@ def scrape_article_text(article_num: int) -> tuple[str, str] | None:
     print(f"  Scraping {url} …", end=" ", flush=True)
 
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15)
-        resp.raise_for_status()
+        html = fetch_page(url, HEADERS)
     except requests.RequestException as e:
         print(f"FAILED ({e})")
         return None
 
-    soup = BeautifulSoup(resp.text, "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
 
     # --- title ---
     title_tag = soup.find("h1")
