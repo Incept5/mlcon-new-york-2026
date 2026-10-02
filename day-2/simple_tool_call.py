@@ -3,6 +3,10 @@ import requests
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
 MODEL = "qwen3.5:4b"
+# Thinking off: ~1.5 s per question, but "Was that a good rate?" is unreliable (right in 1-2 of 5 runs;
+# sometimes it converts the wrong way round). Thinking on: ~5 s per question, right 5 of 5 times, with the
+# working shown (market ~1.32 vs your 1.20, about $12 short). Tested with qwen3.5:4b, 2 Oct 2026.
+THINKING = False
 
 
 def convert_currency(amount, from_currency, to_currency):
@@ -72,7 +76,7 @@ def chat_with_tools(user_message):
             "messages": messages,
             "tools": tools,
             "stream": False,
-            "think": False,
+            "think": THINKING,
         }
     )
 
@@ -111,7 +115,7 @@ def chat_with_tools(user_message):
                 "model": MODEL,
                 "messages": messages,
                 "stream": False,
-                "think": False,
+                "think": THINKING,
             }
         )
 
