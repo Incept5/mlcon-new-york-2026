@@ -16,7 +16,7 @@ HERE = Path(__file__).parent
 REPO = "ResembleAI/chatterbox-turbo"
 VOICE = HERE / "data" / "morgan-freeman-voice-sample.wav"   # the voice to clone: try your own 10 s recording
 TEXT = ("In the autumn of 2026, a quiet gathering took place in New York. They called it M L Con. "
-        "And on that Thursday morning, as the light came through the windows, everyone in the room "
+        "And on that Friday morning, as the light came through the windows, everyone in the room "
         "understood that something remarkable was about to unfold.")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"   # not "mps": Chatterbox sends float64 audio, which MPS rejects

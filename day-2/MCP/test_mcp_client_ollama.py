@@ -72,7 +72,7 @@ async def run_mcp_demo_with_ollama():
             ]
 
             questions = [
-                "What is the weather in the capital of Germany?",
+                "What is the weather in the capital of the United States?",
                 "What is the population of France and what's the weather like in Paris?",
                 "Tell me about Japan - what's its capital and what's the weather there?"
             ]

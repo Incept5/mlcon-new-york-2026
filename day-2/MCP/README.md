@@ -41,9 +41,9 @@ A demonstration client that uses the MCP server with a local Ollama LLM (instead
 - **Error Handling**: Gracefully handles API errors and connection issues
 
 **Example Questions:**
-1. "What is the weather in the capital of Germany?"
-   - LLM calls `get_country_info("Germany")` to find capital (Berlin)
-   - Then calls `get_weather("Berlin")` to get weather
+1. "What is the weather in the capital of the United States?"
+   - LLM calls `get_country_info("United States")` to find the capital (Washington, D.C.)
+   - Then calls `get_weather("Washington, D.C.")` to get weather
    - Combines results into a natural language answer
 
 2. "What is the population of France and what's the weather like in Paris?"
@@ -115,23 +115,23 @@ The script will:
    • get_weather: Get current weather information...
 
 ============================================================
-Question 1: What is the weather in the capital of Germany?
+Question 1: What is the weather in the capital of the United States?
 ============================================================
 
 🔧 Calling tool: get_country_info
    Input: {
-     "country_name": "Germany"
+     "country_name": "United States"
    }
-   Result: {"name": "Germany", "capital": "Berlin", ...}
+   Result: {"name": "United States", "capital": "Washington, D.C.", ...}
 
 🔧 Calling tool: get_weather
    Input: {
-     "location": "Berlin"
+     "location": "Washington, D.C."
    }
-   Result: {"location": "Berlin", "temperature_c": "15", ...}
+   Result: {"location": "Washington, D.C.", "temperature_c": "15", ...}
 
 💬 Answer:
-The capital of Germany is Berlin. The current weather in Berlin is...
+The capital of the United States is Washington, D.C. The current weather there is...
 ```
 
 ## How It Works
