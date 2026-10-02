@@ -21,7 +21,7 @@ def main():
     instruction = f"Please provide a horoscope for {name} whose star sign is {star_sign}. Today's date is {today}."
 
     response = ollama.chat(
-        model=LLM, think=False, stream=True,
+        model=LLM, think=True, stream=False,
         messages=[{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': instruction}],
         options=Options(temperature=0.8, num_ctx=4096, top_p=0.95, top_k=40, num_predict=-1),
     )

@@ -22,7 +22,7 @@ def generate_formatted_response(prompt):
 
 def main():
     prompt = """List the numbers from 1 to 10 and their names in
-    English, French, German, Italian and Mexican.
+    English, French, German, Dutch, Chinese, Russian, Arabic, Polish, Hungarian.
     Provide the output in this exact JSON format:
     {
       "numbers": [
@@ -31,8 +31,12 @@ def main():
           "English": "seven",
           "French": "sept",
           "German": "sieben",
-          "Italian": "sette espresso",
-          "Mexican": "siete tequilas"
+          "Dutch": "zeven",
+          "Chinese": "七",
+          "Russian": "семь",
+          "Arabic": "سبعة",
+          "Polish": "siedem",
+          "Hungarian": "hét"
         },
         ...and so on for numbers 1-10
       ]
