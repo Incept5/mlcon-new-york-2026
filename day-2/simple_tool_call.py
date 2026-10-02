@@ -6,14 +6,18 @@ MODEL = "qwen3.5:4b"
 
 
 def convert_currency(amount, from_currency, to_currency):
-    # Hardcoded rates for demo; in production you'd call a real exchange rate API
+    # Hardcoded rates for demo (ECB reference rates, 2 Oct 2026); in production you'd call a real exchange rate API
     rates = {
-        "EUR-USD": 1.10,
-        "USD-EUR": 0.91,
-        "GBP-USD": 1.27,
-        "USD-GBP": 0.79,
-        "JPY-USD": 0.0067,
-        "USD-JPY": 149.50
+        "EUR-USD": 1.1225,
+        "USD-EUR": 0.89087,
+        "GBP-USD": 1.32008,
+        "USD-GBP": 0.75753,
+        "JPY-USD": 0.00634236,
+        "USD-JPY": 157.67,
+        "MXN-USD": 0.0545405,
+        "USD-MXN": 18.335,
+        "TRY-USD": 0.0203479,
+        "USD-TRY": 49.145
     }
 
     rate_key = f"{from_currency}-{to_currency}"
@@ -42,11 +46,11 @@ tools = [
                     },
                     "from_currency": {
                         "type": "string",
-                        "description": "The source currency code (e.g., EUR, USD, GBP)"
+                        "description": "The source currency code (e.g., EUR, USD, GBP, JPY, MXN, TRY)"
                     },
                     "to_currency": {
                         "type": "string",
-                        "description": "The target currency code (e.g., EUR, USD, GBP)"
+                        "description": "The target currency code (e.g., EUR, USD, GBP, JPY, MXN, TRY)"
                     }
                 },
                 "required": ["amount", "from_currency", "to_currency"]
@@ -127,6 +131,12 @@ if __name__ == "__main__":
     print("-" * 60)
 
     chat_with_tools("Convert 100 USD to GBP")
+    print("-" * 60)
+
+    chat_with_tools("How many US dollars is 500 Mexican pesos?")
+    print("-" * 60)
+
+    chat_with_tools("How many Turkish lira do I get for 200 dollars?")
     print("-" * 60)
 
     chat_with_tools("What is the capital of France?")
