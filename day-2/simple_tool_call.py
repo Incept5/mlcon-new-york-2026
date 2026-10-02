@@ -9,29 +9,40 @@ MODEL = "qwen3.5:4b"
 THINKING = False
 
 
+RATES_URL = "https://api.frankfurter.dev/v1/latest"   # European Central Bank daily rates: free, no API key
+
+# Fallback if the internet is down: units per 1 USD (ECB reference rates, 2 Oct 2026)
+USD_RATES = {"USD": 1.0, "EUR": 0.89087, "GBP": 0.75753, "JPY": 157.67, "MXN": 18.335, "TRY": 49.145}
+
+
+def get_rate(from_currency, to_currency):
+    """Today's rate from the ECB (any of its ~30 currencies), or the built-in table if offline."""
+    if from_currency == to_currency:
+        return 1.0, "same currency"
+    try:
+        reply = requests.get(RATES_URL, params={"base": from_currency, "symbols": to_currency}, timeout=5)
+        if reply.status_code == 200:
+            data = reply.json()
+            return data["rates"][to_currency], f"ECB, {data['date']}"
+        return None, f"no ECB rate for {from_currency} to {to_currency}"   # unknown currency code
+    except requests.RequestException:
+        if from_currency in USD_RATES and to_currency in USD_RATES:
+            return USD_RATES[to_currency] / USD_RATES[from_currency], "built-in table (offline)"
+        return None, "offline, and not in the built-in table"
+
+
 def convert_currency(amount, from_currency, to_currency):
-    # Hardcoded rates for demo (ECB reference rates, 2 Oct 2026); in production you'd call a real exchange rate API
-    rates = {
-        "EUR-USD": 1.1225,
-        "USD-EUR": 0.89087,
-        "GBP-USD": 1.32008,
-        "USD-GBP": 0.75753,
-        "JPY-USD": 0.00634236,
-        "USD-JPY": 157.67,
-        "MXN-USD": 0.0545405,
-        "USD-MXN": 18.335,
-        "TRY-USD": 0.0203479,
-        "USD-TRY": 49.145
-    }
+    from_currency, to_currency = from_currency.upper(), to_currency.upper()
+    rate, source = get_rate(from_currency, to_currency)
+    if rate is None:
+        return {"error": source, "result_text": f"Could not convert {from_currency} to {to_currency}: {source}"}
 
-    rate_key = f"{from_currency}-{to_currency}"
-    rate = rates.get(rate_key, 1.0)
     result = amount * rate
-
     return {
         "converted_amount": round(result, 2),
         "rate": rate,
-        "result_text": f"{amount} {from_currency} = {result:.2f} {to_currency}"
+        "source": source,
+        "result_text": f"{amount} {from_currency} = {result:.2f} {to_currency} ({source})"
     }
 
 
@@ -50,11 +61,11 @@ tools = [
                     },
                     "from_currency": {
                         "type": "string",
-                        "description": "The source currency code (e.g., EUR, USD, GBP, JPY, MXN, TRY)"
+                        "description": "The source currency as a three-letter ISO code (e.g., USD, EUR, GBP, JPY, MXN, TRY, CHF, INR)"
                     },
                     "to_currency": {
                         "type": "string",
-                        "description": "The target currency code (e.g., EUR, USD, GBP, JPY, MXN, TRY)"
+                        "description": "The target currency as a three-letter ISO code (e.g., USD, EUR, GBP, JPY, MXN, TRY, CHF, INR)"
                     }
                 },
                 "required": ["amount", "from_currency", "to_currency"]
@@ -141,6 +152,9 @@ if __name__ == "__main__":
     print("-" * 60)
 
     chat_with_tools("How many Turkish lira do I get for 200 dollars?")
+    print("-" * 60)
+
+    chat_with_tools("What are 1,000 Indian rupees in Swiss francs?")   # any pair: the rate comes live from the ECB
     print("-" * 60)
 
     # Needs the tool AND some reasoning: £100 is worth about $132, so $120 was a poor rate. Run it a few times.
