@@ -36,7 +36,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "convert_currency",
-            "description": "Convert an amount from one currency to another",
+            "description": "Convert an amount from one currency to another at today's exchange rate. Use it for any question about exchange rates, including whether an exchange someone was offered was a good deal.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -137,6 +137,11 @@ if __name__ == "__main__":
     print("-" * 60)
 
     chat_with_tools("How many Turkish lira do I get for 200 dollars?")
+    print("-" * 60)
+
+    # Needs the tool AND some reasoning: £100 is worth about $132, so $120 was a poor rate. Run it a few times.
+    # Then try "I was given $120 for £100, was this good?": small models often convert the wrong way round.
+    chat_with_tools("I changed £100 into dollars and got $120. Was that a good rate?")
     print("-" * 60)
 
     chat_with_tools("What is the capital of France?")
