@@ -45,3 +45,7 @@ mcp
 # --- Apple Silicon ONLY — text-to-speech demo (chatterbox_tts.py) ---
 # Marker means pip installs it only on Apple Silicon Macs and skips it elsewhere.
 mlx-audio; platform_machine == "arm64" and sys_platform == "darwin"
+
+# --- Windows / Linux (and Mac) text-to-speech demo (chatterbox_turbo_tts.py) ---
+# Not installed by default because it pulls in PyTorch (large). When you want it:
+#   pip install chatterbox-tts

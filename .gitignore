@@ -13,3 +13,6 @@ TEACHER_NOTES.md
 /day-1/faces/
 /day-1/labelled.jpg
 /day-2/housing-page-*.md
+
+# Generated audio from the TTS demos
+/day-2/output/
