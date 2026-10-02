@@ -162,6 +162,7 @@ for full detail.
 | Script | What it shows |
 |---|---|
 | `chatterbox_tts.py` | **Text → speech** with voice cloning via MLX (`mlx-audio`) — the "goodbye from Ricky" TTS demo. Apple‑Silicon only. Sample outputs live in `data/` (`ricky-new-york-ai-full.mp3`, `ricky-berlin-*.mp3`, `klopp-de*.mp3`). |
+| `clone_voice.py` | **Clone a voice** from a 5–15 s sample (Roosevelt by default) with Chatterbox on the class Spark: plays it out loud and saves it to `output/`. Windows, Mac or Linux; nothing to download (`pip install openai sounddevice numpy`). |
 | `chatterbox_turbo_tts.py` | The same voice-cloning demo with PyTorch (`pip install chatterbox-tts`), for **Windows and Linux** (also runs on a Mac). Uses an NVIDIA GPU if there is one, otherwise the CPU. Copy the weights from the USB drive's `6-voice-windows-linux` folder first; otherwise it downloads 3.8 GB. |
 
 The closing slides (Embabel, Open‑Claw, Hermes Agent, running an agent 24/7 on a
