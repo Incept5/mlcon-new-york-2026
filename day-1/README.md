@@ -51,8 +51,9 @@ TOGETHER_API_KEY=...
 FIREWORKS_API_KEY=...
 ```
 
-During the course, add the class Spark's key as `SPARK_API_KEY=...` too (used by
-`openai_everywhere.py`; the key is given out in the room and withdrawn afterwards).
+The class Spark's key (`SPARK_API_KEY=sk-GMHXy89Nrhku0BfnA6FrYR6F_sOYJeJ4`) is already in `.env.example` and built into
+the Spark scripts, so they work without a `.env`. It is shared by the class and disabled after the course;
+`SPARK5-STUDENT-ACCESS.md` has the URLs and examples.
 
 ---
 

@@ -7,7 +7,7 @@ from openai import OpenAI
 
 load_dotenv()
 HERE = Path(__file__).parent
-client = OpenAI(base_url=os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1"), api_key=os.getenv("SPARK_API_KEY", ""))
+client = OpenAI(base_url=os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1"), api_key=(os.getenv("SPARK_API_KEY") or "sk-GMHXy89Nrhku0BfnA6FrYR6F_sOYJeJ4"))
 MODEL = "qwen3.6-35b"     # or Ollama: base_url http://127.0.0.1:11434/v1, model qwen3.5:4b
 
 

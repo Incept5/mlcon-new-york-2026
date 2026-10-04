@@ -15,7 +15,7 @@ ENDPOINTS = {
     "lmstudio": {"base_url": "http://127.0.0.1:1234/v1", "api_key": "lm-studio", "model": "qwen3.5-4b",
                  "extra_body": {"reasoning_effort": "none"}},
     "spark": {"base_url": os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1"),
-              "api_key": os.getenv("SPARK_API_KEY", ""), "model": "qwen3.6-35b",
+              "api_key": (os.getenv("SPARK_API_KEY") or "sk-GMHXy89Nrhku0BfnA6FrYR6F_sOYJeJ4"), "model": "qwen3.6-35b",
               "extra_body": {"chat_template_kwargs": {"enable_thinking": False}}},
     "together": {"base_url": "https://api.together.xyz/v1", "api_key": os.getenv("TOGETHER_API_KEY", ""),
                  "model": "Qwen/Qwen3.5-9B", "extra_body": {"chat_template_kwargs": {"enable_thinking": False}}},

@@ -15,7 +15,7 @@ HERE = Path(__file__).parent
 TEXT = (HERE / "data" / "alice_in_wonderland.txt").read_text()   # ~40k tokens: fits in the Spark's 64k context
 WHOLE_BOOK = "--whole-book" in sys.argv   # the default is chapters I-III (~8k tokens): quick even when the whole room runs it
 
-spark = OpenAI(base_url=os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1"), api_key=os.getenv("SPARK_API_KEY", ""))
+spark = OpenAI(base_url=os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1"), api_key=(os.getenv("SPARK_API_KEY") or "sk-GMHXy89Nrhku0BfnA6FrYR6F_sOYJeJ4"))
 MODEL = "qwen3.6-35b"
 if WHOLE_BOOK:
     BOOK = TEXT

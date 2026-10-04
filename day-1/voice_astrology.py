@@ -16,7 +16,7 @@ HERE = Path(__file__).parent
 
 # Everything runs on the class Spark: Whisper (speech-to-text), Qwen (Maude) and the voices.
 SPARK = os.getenv("SPARK_BASE_URL", "http://192.168.8.246:8000/v1")
-client = OpenAI(base_url=SPARK, api_key=os.getenv("SPARK_API_KEY", ""))
+client = OpenAI(base_url=SPARK, api_key=(os.getenv("SPARK_API_KEY") or "sk-GMHXy89Nrhku0BfnA6FrYR6F_sOYJeJ4"))
 chatterbox = OpenAI(base_url=SPARK.replace(":8000", ":8031"), api_key="none")   # no key on this port
 
 # ---- things to change -----------------------------------------------------------
